@@ -3,14 +3,6 @@
 
 using namespace std;
 
-void teste(string str, int n) {
-    cout << str[n] << endl;
-    if(n != 0)
-        teste(str, --n);
-    cout << str[n] << endl;
-
-}
-
 int main() {
 
     Automato automato(8, 0, {4});
@@ -31,9 +23,10 @@ int main() {
     automato.addConnection(7, 7, Function('c', {'B'}, {}));
     automato.addConnection(7, 4, Function('$', {'$'}, {}));
 
-    cout << (automato.run("abbbc$") ? "True" : "False") << endl;
-    cout << (automato.run("aaaabcccc$") ? "True" : "False") << endl;
-    cout << (automato.run("abcccc$") ? "True" : "False") << endl;
-    cout << (automato.run("abbbc$") ? "True" : "False") << endl;
+    while(true) {
+      string entry;
+      cin >> entry;
+      cout << (automato.run(entry) ? "True" : "False") << endl;
+    }
     return 0;
 }

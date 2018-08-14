@@ -25,10 +25,14 @@ void Automato::addConnection(int v1, int v2, Function f) {
 
 bool Automato::run(string entry){
     this->stateStoped = -1;
+    if(!entry.empty())
+      entry.push_back('$');
+      
     runEntry(this->startState, entry);
 
     if(this->vfinais[this->stateStoped])
         return true;
+
 
     return false;
 
@@ -65,9 +69,10 @@ void Automato::runEntry(int i, std::string entry) {
                     check = true;
             }
 
+            string entry0 = entry;
             if (check || (u.second.f2.empty())) {
-                if(entry.size() >= 1)
-                    entry.erase(entry.begin());
+                if(entry0.size() >= 1)
+                    entry0.erase(entry0.begin());
 
                 if(!u.second.f2.empty() && this->pilha.size() >= 1) {
                     if(this->pilha.top() != '$') {
@@ -80,7 +85,7 @@ void Automato::runEntry(int i, std::string entry) {
                     this->pilha.push(c);
                 }
 
-                runEntry(u.first, entry);
+                runEntry(u.first, entry0);
             }
         }
     }
