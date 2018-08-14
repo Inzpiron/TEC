@@ -25,9 +25,7 @@ void Automato::addConnection(int v1, int v2, Function f) {
 
 bool Automato::run(string entry){
     this->stateStoped = -1;
-    if(!entry.empty())
-      entry.push_back('$');
-      
+
     runEntry(this->startState, entry);
 
     if(this->vfinais[this->stateStoped])
@@ -41,10 +39,12 @@ bool Automato::run(string entry){
 void Automato::runEntry(int i, std::string entry) {
     if(entry.empty() && this->pilha.empty() && vfinais[i]) {
         stateStoped = i;
+
+        if(vfinais[i])
+          cout << "Stoped in Final State " << i << endl;
     }
 
     for(int j = 0; j < this->listaAdj[i].size(); j++) {
-        //cout << i << " " << entry << endl;
         std::pair<int, Function> u = listaAdj[i][j];
 
         if (u.second.f1 == entry[0]) {
@@ -84,7 +84,7 @@ void Automato::runEntry(int i, std::string entry) {
                 for(auto c : u.second.f3) {
                     this->pilha.push(c);
                 }
-
+                cout << i << " " << entry << " -> " << u.first << endl;
                 runEntry(u.first, entry0);
             }
         }
