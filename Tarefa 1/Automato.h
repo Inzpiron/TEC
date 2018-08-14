@@ -30,6 +30,7 @@ class Automato {
 private:
     std::stack<char> pilha;
     bool * vfinais;
+    bool debug;
     AdjType listaAdj;
     int startState;
     int stateStoped = -1;
@@ -37,6 +38,8 @@ private:
     Automato();
 
 public:
+    void debugOn();
+    void debugOff();
     Automato(int nv, int vi, std::vector<int> vf);
     void addConnection(int v1, int v2, Function f);
     bool run(string entry);
